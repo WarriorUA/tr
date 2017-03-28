@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,10 +27,12 @@ namespace classTrap
             points[3].Y = 0;
         }
 
-        public virtual void Paint()
+        public virtual void Paint(object sender, PaintEventArgs e)
         {
             
-        }//абстрактный метод
+        }
+        public virtual void Pouring(object sender, PaintEventArgs e)
+        {}//абстрактный метод
     }
 
     class Trap : ClassPoint
@@ -47,12 +50,20 @@ namespace classTrap
             points[3].X = 100;
             points[3].Y = 0;
         }
-        public void Paint(object sender, PaintEventArgs e)//рисование
+        public override void Paint(object sender, PaintEventArgs e)//рисование
+        {
+            Graphics g = e.Graphics;
+            g.Clear(Color.White);
+            g.DrawPolygon(new Pen(Color.Black, 2), points);
+        }
+
+        public override void Pouring(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.Clear(Color.White);
             g.FillPolygon(new SolidBrush(Color.Aqua), points);
         }
+
         public void Rotate(object sender, PaintEventArgs e)//поворот
         {
             far += 30;

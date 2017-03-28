@@ -77,20 +77,41 @@ namespace classTrap
 
         private void buttonPouring_Click(object sender, EventArgs e)
         {
+            try
+            {
+                chetur.points[0].X = int.Parse(textBoxXA.Text);
+                chetur.points[0].Y = int.Parse(textBoxYA.Text);
+                chetur.points[1].X = int.Parse(textBoxXB.Text);
+                chetur.points[1].Y = int.Parse(textBoxYB.Text);
+                chetur.points[2].X = int.Parse(textBoxXC.Text);
+                chetur.points[2].Y = int.Parse(textBoxYC.Text);
+                chetur.points[3].X = int.Parse(textBoxXD.Text);
+                chetur.points[3].Y = int.Parse(textBoxYD.Text);
+            }
+            catch
+            {
+            }
             num = 2;
             chetur.setPoints();
-            chetur.points[0].X = int.Parse(textBoxXA.Text);
-            chetur.points[0].Y = int.Parse(textBoxYA.Text);
-            chetur.points[1].X = int.Parse(textBoxXB.Text);
-            chetur.points[1].Y = int.Parse(textBoxYB.Text);
-            chetur.points[2].X = int.Parse(textBoxXC.Text);
-            chetur.points[2].Y = int.Parse(textBoxYC.Text);
-            chetur.points[3].X = int.Parse(textBoxXD.Text);
-            chetur.points[3].Y = int.Parse(textBoxYD.Text);
+           
             Graphics g = pictureBoxPaintong.CreateGraphics();
             Rectangle rec = new Rectangle();
             PaintEventArgs es = new PaintEventArgs(g, rec);
-            chetur.Pouring(pictureBoxPaintong, es);
+            try
+            {
+
+                chetur.Pouring(pictureBoxPaintong, es);
+            }
+            catch 
+            {
+            }
+            try
+            {
+                trap.Pouring(pictureBoxPaintong,es);
+            }
+            catch 
+            {
+            }
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
