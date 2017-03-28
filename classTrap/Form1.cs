@@ -12,7 +12,9 @@ namespace classTrap
 {
     public partial class Form1 : Form
     {
+        public bool flag = false;
         int num = 1;
+        ClassPoint point = new ClassPoint();
         Chetur chetur = new Chetur();
         Trap trap = new Trap();
         public Form1()
@@ -22,6 +24,7 @@ namespace classTrap
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
+            flag = false;
             num = 1;
             chetur.setPoints();
             chetur.points[0].X = int.Parse(textBoxXA.Text);
@@ -35,7 +38,8 @@ namespace classTrap
             Graphics g = pictureBoxPaintong.CreateGraphics();
             Rectangle rec = new Rectangle();
             PaintEventArgs es = new PaintEventArgs(g, rec);
-            chetur.Draw(pictureBoxPaintong, es);
+            point = chetur;
+            point.Draw(pictureBoxPaintong, es);
         }
 
         private void buttonRotate_Click(object sender, EventArgs e)
@@ -48,18 +52,27 @@ namespace classTrap
             switch (num)
             {
                 case 1:
-                    {
-                        chetur.RotatePaint(pictureBoxPaintong, es);
+                {
+                    point = chetur;
+                        point.RotatePaint(pictureBoxPaintong, es);
                         break;
                     }
                 case 2:
                 {
-                    chetur.RotatePouring(pictureBoxPaintong,es);
+                    point = chetur;
+                    point.RotatePouring(pictureBoxPaintong,es);
                         break;
                 }
                 case 3:
                 {
-                    trap.Rotate(pictureBoxPaintong,es);
+                    point = trap;
+                    point.RotatePaint(pictureBoxPaintong,es);
+                        break;
+                }
+                case 4:
+                {
+                    point = trap;
+                        point.RotatePouring(pictureBoxPaintong,es);
                         break;
                 }
             }
@@ -67,16 +80,23 @@ namespace classTrap
 
         private void buttonTrap_Click(object sender, EventArgs e)
         {
+            flag = true;
             num = 3;
             Graphics g = pictureBoxPaintong.CreateGraphics();
             Rectangle rec = new Rectangle();
             PaintEventArgs es = new PaintEventArgs(g, rec);
             trap.setPoints();
-            trap.Paint(pictureBoxPaintong, es);
+            point = trap;
+            point.Paint(pictureBoxPaintong, es);
         }
 
         private void buttonPouring_Click(object sender, EventArgs e)
         {
+
+            num = 2;
+            Graphics g = pictureBoxPaintong.CreateGraphics();
+            Rectangle rec = new Rectangle();
+            PaintEventArgs es = new PaintEventArgs(g, rec);
             try
             {
                 chetur.points[0].X = int.Parse(textBoxXA.Text);
@@ -87,31 +107,24 @@ namespace classTrap
                 chetur.points[2].Y = int.Parse(textBoxYC.Text);
                 chetur.points[3].X = int.Parse(textBoxXD.Text);
                 chetur.points[3].Y = int.Parse(textBoxYD.Text);
+                point = chetur;
+                point.Pouring(pictureBoxPaintong, es);
+            }
+            catch
+            {
+               
+            }
+            if(flag)
+            try
+            {
+                num = 4;
+                point = trap;
+                point.Pouring(pictureBoxPaintong, es);
             }
             catch
             {
             }
-            num = 2;
-            chetur.setPoints();
-           
-            Graphics g = pictureBoxPaintong.CreateGraphics();
-            Rectangle rec = new Rectangle();
-            PaintEventArgs es = new PaintEventArgs(g, rec);
-            try
-            {
 
-                chetur.Pouring(pictureBoxPaintong, es);
-            }
-            catch 
-            {
-            }
-            try
-            {
-                trap.Pouring(pictureBoxPaintong,es);
-            }
-            catch 
-            {
-            }
         }
 
         private void buttonClear_Click(object sender, EventArgs e)

@@ -27,12 +27,22 @@ namespace classTrap
             points[3].Y = 0;
         }
 
+        public virtual void Draw(object sender, PaintEventArgs e)
+        {
+            
+        }
         public virtual void Paint(object sender, PaintEventArgs e)
         {
             
         }
         public virtual void Pouring(object sender, PaintEventArgs e)
         {}//абстрактный метод
+        public virtual void RotatePaint(object sender, PaintEventArgs e)//поворот нарисованной трапеции
+        {
+        }
+        public virtual void RotatePouring(object sender, PaintEventArgs e)//поворот закрашенной трапеции
+        {
+        }
     }
 
     class Trap : ClassPoint
@@ -64,7 +74,7 @@ namespace classTrap
             g.FillPolygon(new SolidBrush(Color.Aqua), points);
         }
 
-        public void Rotate(object sender, PaintEventArgs e)//поворот
+        public override void RotatePaint(object sender, PaintEventArgs e)//поворот
         {
             far += 30;
             Graphics g = e.Graphics;
@@ -72,6 +82,15 @@ namespace classTrap
             e.Graphics.RotateTransform(far);//угол поворота
             e.Graphics.TranslateTransform(100.0F, 0.0F);//поворот, в остальных поворотах все то же
             g.DrawPolygon(new Pen(Color.Black, 2), points);
+        }
+        public override void RotatePouring(object sender, PaintEventArgs e)//поворот
+        {
+            far += 30;
+            Graphics g = e.Graphics;
+            g.Clear(Color.White);
+            e.Graphics.RotateTransform(far);//угол поворота
+            e.Graphics.TranslateTransform(100.0F, 0.0F);//поворот, в остальных поворотах все то же
+            g.FillPolygon(new SolidBrush(Color.Aqua), points);
         }
     }
 
@@ -82,19 +101,19 @@ namespace classTrap
         {
             points = new Point[countPoints];
         }
-        public void Draw(object sender, PaintEventArgs e)//рисование
+        public override void Draw(object sender, PaintEventArgs e)//рисование
         {
             Graphics g = e.Graphics;
             g.Clear(Color.White);
             g.DrawPolygon(new Pen(Color.Black,2),points );
         }
-        public void Pouring(object sender, PaintEventArgs e)//закрашивание
+        public override void Pouring(object sender, PaintEventArgs e)//закрашивание
         {
             Graphics g = e.Graphics;
             g.Clear(Color.White);
             g.FillPolygon(new SolidBrush(Color.Aqua), points);
         }
-        public void RotatePaint(object sender, PaintEventArgs e)//поворот нарисованной трапеции
+        public override void RotatePaint(object sender, PaintEventArgs e)//поворот нарисованной трапеции
         {
             far += 30;
             Graphics g = e.Graphics;
@@ -103,7 +122,7 @@ namespace classTrap
             e.Graphics.TranslateTransform(100.0F, 0.0F);
             g.DrawPolygon(new Pen(Color.Black, 2), points);
         }
-        public void RotatePouring(object sender, PaintEventArgs e)//поворот закрашенной трапеции
+        public override void RotatePouring(object sender, PaintEventArgs e)//поворот закрашенной трапеции
         {
             far += 30;
             Graphics g = e.Graphics;
